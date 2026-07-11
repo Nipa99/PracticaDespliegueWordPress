@@ -1,0 +1,37 @@
+pipeline {
+    agent any
+
+    stages {
+
+        stage('Checkout') {
+            steps {
+                checkout scm
+            }
+        }
+
+        stage('Verificar Workspace') {
+            steps {
+                sh 'pwd'
+                sh 'ls -la'
+            }
+        }
+
+        stage('Docker Compose Down') {
+            steps {
+                sh 'docker compose down'
+            }
+        }
+
+        stage('Docker Compose Up') {
+            steps {
+                sh 'docker compose up -d'
+            }
+        }
+
+        stage('Verificar Contenedores') {
+            steps {
+                sh 'docker ps'
+            }
+        }
+    }
+}
